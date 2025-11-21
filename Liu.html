@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hayley的金融網站</title>
+    <style>
+        :root {
+            --light-green: #e8f5e8; 
+            --deep-blue: #000080; 
+            --black: #000000; 
+            --accent: #5679ea;
+            --success: #068c06;
+            --error: #f44336;
+            --pink: #ffc0cb;
+            --text-dark: var(--black);
+            --text-light: #f5f5f5;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, var(--light-green) 0%, #f1f8e9 100%); 
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: var(--light-green); 
+            color: var(--black); 
+            padding: 0.8rem 0; 
+            box-shadow: var(--shadow);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem; 
+            font-weight: 700;
+            color: var(--black); 
+        }
+        .logo i {
+            color: var(--accent);
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        .btn {
+            background-color: var(--accent);
+            color: var(--deep-blue); 
+            padding: 0.6rem 1rem; 
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn:hover {
+            background-color: #ffb300;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: var(--deep-blue);
+        }
+        .section {
+            padding: 1.5rem 0; 
+            flex: 1;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 1rem; 
+            color: var(--deep-blue); 
+            font-size: 2rem; 
+        }
+        .section-subtitle {
+            text-align: center;
+            margin-bottom: 1rem; 
+            color: var(--black); 
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .home-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 1rem; 
+            padding: 1rem 0;
+        }
+        .home-icon {
+            font-size: 4rem; 
+            color: var(--deep-blue); 
+            margin-bottom: 0.5rem;
+        }
+        .home-text {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1rem; 
+            color: var(--black); 
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem; 
+            margin-top: 1rem;
+        }
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1rem; 
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            font-size: 2rem; 
+            color: var(--deep-blue);
+            margin-bottom: 0.5rem;
+        }
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: var(--deep-blue);
+        }
+        .feature-desc {
+            color: var(--black);
+        }
+        
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem; 
+            box-shadow: var(--shadow);
+        }
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background-color: rgba(0, 128, 0, 0.05); 
+            border-radius: var(--border-radius);
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 1.5rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .game-cell {
+            aspect-ratio: 1;
+            background-color: #f5f5f5;
+            border: 2px solid var(--deep-blue); 
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 10px;
+            color: var(--black); 
+        }
+        .game-cell:hover {
+            background-color: #e0e0e0;
+            transform: scale(1.03);
+        }
+        .game-cell.selected {
+            background-color: var(--accent);
+            color: var(--deep-blue);
+            transform: scale(1.05);
+        }
+        .game-cell.correct {
+            background-color: var(--success);
+            color: white;
+        }
+        .game-cell.incorrect {
+            background-color: var(--pink);
+            color: white;
+        }
+        .game-cell.free {
+            background-color: var(--light-green); 
+            color: var(--black); 
+        }
+        .term-name {
+            font-size: 1.4rem; 
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--deep-blue); 
+        }
+        .term-desc {
+            font-size: 0.9rem; 
+            color: var(--black); 
+        }
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem; 
+        }
+        .question-area {
+            background-color: #f8f9fa;
+            padding: 1rem; 
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--deep-blue);
+        }
+        .question-text {
+            font-size: 1.1rem; 
+            font-weight: 600;
+            color: var(--deep-blue);
+            margin-bottom: 0.5rem;
+        }
+        .score-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.8rem;
+            padding: 0.8rem;
+            background-color: rgba(0, 128, 0, 0.05);
+            border-radius: var(--border-radius);
+        }
+        .score-item {
+            text-align: center;
+        }
+        .score-value {
+            font-size: 1.3rem; 
+            font-weight: bold;
+            color: var(--deep-blue);
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            color: white;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: var(--transition);
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .notification.success {
+            background-color: var(--success);
+        }
+        .notification.info {
+            background-color: var(--deep-blue);
+        }
+        .notification.error {
+            background-color: var(--error);
+        }
+        .notification.bingo {
+            background-color: #ffeb3b;
+            color: var(--deep-blue);
+        }
+        footer {
+            background-color: var(--light-green); 
+            color: var(--black); 
+            padding: 1rem 0; 
+            text-align: center;
+            margin-top: auto;
+        }
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        /* 響應式 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .game-cell {
+                font-size: 0.9rem; 
+            }
+            .game-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            .score-area {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .home-icon {
+                font-size: 3rem;
+            }
+            .features {
+                grid-template-columns: 1fr;
+            }
+            .game-container {
+                padding: 1rem;
+            }
+            .game-board {
+                gap: 10px;
+            }
+        }
+        /* 切換 */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="notification" class="notification"></div>
+    
+
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <span> 歡 迎 來 到 Hayley 的 財 商 網 站   </span>
+                </div>
+                <div class="nav-buttons">
+                    <button id="home-btn" class="btn">
+                        <i class="fas fa-home"></i>
+                        <span>回首頁</span>
+                    </button>
+                    <button id="game-btn" class="btn btn-outline">
+                        <i class="fas fa-dice"></i>
+                        <span>開始遊戲</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section id="home-page" class="page active">
+        <div class="container">
+            <h2 class="section-title">學習金融知識</h2>
+            <p class="section-subtitle">財務報表與股票分析 賓果遊戲等你來挑戰喔 !</p>
+          
+            <div class="home-content">
+                <div class="home-icon">
+                    <i class="fas fa-piggy-bank"></i>
+                </div>
+                <div class="home-text">
+                    <p>     </p>
+                </div>
+              
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="feature-title">學習財報知識</h3>
+                        <p class="feature-desc">從損益表到現金流量表，掌握挑股核心</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">賓果連線挑戰</h3>
+                        <p class="feature-desc">選對格子達成連線，享受成就感</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3 class="feature-title">四輪遞增難度</h3>
+                        <p class="feature-desc">從基礎到進階，逐步精進投資分析能力</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="game-page" class="page">
+        <div class="container">
+            <h6 class="section-title ">    提 升 你 的 財 商     </h6>
+          
+            <div class="game-container">
+                <div class="game-info">
+                    <div>
+                        <h7>輪次: <span id="round-count">1</span>/4</h7>
+                    </div>
+                    <div>
+                        <h7> <span id="game-status">進行中</span></h7>
+                    </div>
+                </div>
+              
+                <div class="question-area">
+                    <div class="question-text" id="question-text">點擊與問題對應的財務指標</div>
+                </div>
+              
+                <div class="game-board" id="game-board">
+                    <!-- JavaScript動態 -->
+                </div>
+              
+                <div class="score-area">
+                    <div class="score-item">
+                        <div>總分數</div>
+                        <div class="score-value" id="score-value">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div>正確答題</div>
+                        <div class="score-value" id="correct-count">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div>賓果連線</div>
+                        <div class="score-value" id="line-count">0</div>
+                    </div>
+                </div>
+              
+                <div class="game-controls">
+                    <button id="new-game-btn" class="btn">
+                        <i class="fas fa-redo"></i>
+                        <span>重新開始</span>
+                    </button>
+                    <button id="hint-btn" class="btn">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>提示</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 頁尾 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p> 版權聲明: 本網站由 Hayley Liu 製作 &copy; 2025 </p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        
+       
+        const financeDataByRound = {
+            1: [ // 輪1: 基本概念
+                { term: "損益表", description: "公司賺不賺錢", question: "三大財報中，用來表達企業經營成果（獲利能力）的報表是什麼？" },
+                { term: "資產負債表", description: "資金從哪來、資產結構穩不穩", question: "三大財報中，顯示公司資金來源與資產結構的報表是什麼？" },
+                { term: "現金流量表", description: "現金夠不夠、錢流去哪", question: "三大財報中，用來檢視公司現金流向的報表是什麼？" },
+                { term: "EPS", description: "每股盈餘", question: "稅後盈餘除以流通在外加權股數的指標是什麼？" },
+                { term: "毛利率", description: "毛利/收入", question: "反映產品競爭力與定價能力的指標是什麼？" },
+                { term: "營業利益", description: "收入減成本與費用", question: "損益表中，收入減去成本與營業費用的結果是什麼？" },
+                { term: "淨利", description: "稅後淨利", question: "扣除稅後的經營成果是什麼？" },
+                { term: "股東權益", description: "股本+資本公積+保留盈餘", question: "資產負債表中，股東投入與累積利潤的部分是什麼？" }
+            ],
+            2: [ // 輪2: 基礎
+                { term: "ROE", description: "淨利/股東權益", question: "衡量投資報酬率的指標，計算為淨利除以股東權益是什麼？" },
+                { term: "ROA", description: "淨利/總資產", question: "評估資產運用效率的指標是什麼？" },
+                { term: "負債比", description: "總負債/總資產", question: "檢視公司財務穩健度的比率是什麼？" },
+                { term: "流動比", description: "流動資產/流動負債", question: "評估短期償債能力的指標是什麼？" },
+                { term: "資產周轉率", description: "收入/平均資產", question: "衡量資產產生收入效率的比率是什麼？" },
+                { term: "應收帳款周轉率", description: "收入/平均應收帳款", question: "檢視收款速度的指標是什麼？" },
+                { term: "存貨周轉率", description: "成本/平均存貨", question: "評估庫存管理效率的比率是什麼？" },
+                { term: "營運現金流", description: "日常營運產生的現金", question: "現金流量表中，來自銷售與付貨款的現金流是什麼？" }
+            ],
+            3: [ // 輪3: 
+                { term: "速動比", description: "(流動資產-存貨)/流動負債", question: "排除存貨後的短期償債能力指標是什麼？" },
+                { term: "利息保障倍數", description: "EBIT/利息費用", question: "檢視支付利息能力的比率是什麼？" },
+                { term: "營益率", description: "營業利益/收入", question: "反映管理效率與成本控制的指標是什麼？" },
+                { term: "淨利率", description: "淨利/收入", question: "綜合獲利能力的比率是什麼？" },
+                { term: "投資現金流", description: "購買或出售資產的現金", question: "現金流量表中，用於長期投資的現金流是什麼？" },
+                { term: "融資現金流", description: "來自投資人或貸款的資金", question: "現金流量表中，資金補充或擴張的現金流是什麼？" },
+                { term: "自由現金流", description: "營業現金流-資本支出", question: "公司自給自足、還債配息的能力指標是什麼？" },
+                { term: "本益比", description: "股價/EPS", question: "評估股票投資價值的指標是什麼？" }
+            ],
+            4: [ // 輪4: 
+                { term: "營收成長率", description: "(本期營收-上期)/本期", question: "衡量銷售擴張動能的指標是什麼？" },
+                { term: "利潤成長率", description: "(本期利潤-上期)/本期", question: "檢視獲利趨勢的比率是什麼？" },
+                { term: "資產成長率", description: "(本期資產-上期)/本期", question: "評估公司規模擴張的指標是什麼？" },
+                { term: "內在成長率", description: "ROE×盈餘保留率", question: "透過自有資金持續成長的計算公式是什麼？" },
+                { term: "BPS", description: "股東權益/流通股數", question: "每股淨值的簡稱是什麼？" },
+                { term: "股利殖利率", description: "每股股利/股價", question: "投資報酬率的股東分紅指標是什麼？" },
+                { term: "五力篩選法", description: "獲利力、效率力、安全力、配息力、成長力", question: "基本面快篩的五項力量是什麼？" },
+                { term: "PEG", description: "本益比/成長率", question: "結合成長性評估合理價格的指標是什麼？" }
+            ]
+        };
+        // 狀態
+        let gameState = {
+            currentRound: 1,
+            score: 0,
+            correctAnswers: 0,
+            completedLines: 0,
+            selectedCells: [],
+            currentQuestion: null,
+            gameCompleted: false,
+            usedTerms: []
+        };
+        // 初始化
+        function initGame() {
+            gameState = {
+                currentRound: 1,
+                score: 0,
+                correctAnswers: 0,
+                completedLines: 0,
+                selectedCells: [],
+                currentQuestion: null,
+                gameCompleted: false,
+                usedTerms: []
+            };
+            updateGameDisplay();
+            createGameBoard();
+            nextQuestion();
+        }
+        
+        function createGameBoard() {
+            const gameBoard = document.getElementById('game-board');
+            gameBoard.innerHTML = '';
+            const currentRoundData = financeDataByRound[gameState.currentRound];
+            const shuffledTerms = [...currentRoundData].sort(() => Math.random() - 0.5);
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'game-cell';
+                if (i === 4) { // 自動得分格
+                    cell.classList.add('free');
+                    cell.innerHTML = `
+                        <div class="term-name">Hayley</div>
+                        <div class="term-desc">加分區</div>
+                    `;
+                    cell.dataset.term = 'free';
+                    cell.dataset.index = i;
+                    gameState.selectedCells.push(i); // 自動選中
+                } else {
+                    const term = shuffledTerms[i === 4 ? i-1 : i > 4 ? i-1 : i];
+                    cell.innerHTML = `
+                        <div class="term-name">${term.term}</div>
+                        <div class="term-desc">${term.description}</div>
+                    `;
+                    cell.dataset.index = i;
+                    cell.dataset.term = term.term;
+                    cell.addEventListener('click', handleCellClick);
+                }
+                gameBoard.appendChild(cell);
+            }
+        }
+        
+        function handleCellClick(event) {
+            if (gameState.gameCompleted) return;
+            const cell = event.currentTarget;
+            const term = cell.dataset.term;
+            const cellIndex = parseInt(cell.dataset.index);
+            if (gameState.selectedCells.includes(cellIndex)) return;
+            if (term === gameState.currentQuestion.correctTerm) {
+                // 正確
+                cell.classList.add('correct', 'pulse');
+                gameState.score += 10;
+                gameState.correctAnswers++;
+                gameState.selectedCells.push(cellIndex);
+                showNotification('答對了！+10分', 'success');
+                checkLines();
+                setTimeout(() => {
+                    nextQuestion();
+                }, 1500);
+            } else {
+                // 錯誤
+                cell.classList.add('incorrect', 'pulse');
+                gameState.score = Math.max(0, gameState.score - 5);
+                showNotification('答錯了！-5分', 'error');
+                setTimeout(() => {
+                    cell.classList.remove('incorrect', 'pulse');
+                }, 1000);
+            }
+            updateGameDisplay();
+        }
+        // 下題
+        function nextQuestion() {
+            if (gameState.selectedCells.length >= 9) { 
+                if (gameState.currentRound < 4) {
+                    gameState.currentRound++;
+                    gameState.selectedCells = [4]; 
+                    createGameBoard();
+                    showNotification(`恭喜完成第${gameState.currentRound - 1}輪！進入第${gameState.currentRound}輪（難度提升）`, 'info');
+                    nextQuestion(); 
+                    return;
+                } else {
+                    gameState.gameCompleted = true;
+                    document.getElementById('game-status').textContent = '遊戲結束！';
+                    showNotification(`遊戲結束！最終得分: ${gameState.score}，恭喜通關！`, 'success');
+                    return;
+                }
+            }
+            const currentRoundData = financeDataByRound[gameState.currentRound];
+            const availableTerms = currentRoundData.filter(t =>
+                !gameState.selectedCells.some(idx => {
+                    const c = document.querySelector(`.game-cell[data-index="${idx}"]`);
+                    return c && c.dataset.term === t.term;
+                })
+            );
+            if (availableTerms.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * availableTerms.length);
+            const questionData = availableTerms[randomIndex];
+            gameState.currentQuestion = {
+                text: questionData.question,
+                correctTerm: questionData.term
+            };
+            document.getElementById('question-text').textContent = questionData.question;
+            updateGameDisplay();
+        }
+        // hayley連線
+        function checkLines() {
+            const lines = [
+                [0,1,2], [3,4,5], [6,7,8], // 橫
+                [0,3,6], [1,4,7], [2,5,8], // 直
+                [0,4,8], [2,4,6] // 對角
+            ];
+            let newLines = 0;
+            for (const line of lines) {
+                if (line.every(idx => gameState.selectedCells.includes(idx))) {
+                    newLines++;
+                    highlightLine(line);
+                }
+            }
+            if (newLines > 0) {
+                gameState.completedLines += newLines;
+                gameState.score += newLines * 20;
+                showNotification(`恭喜賓果！完成${newLines}條連線 +${newLines * 20}分`, 'bingo');
+            }
+        }
+        
+        function highlightLine(line) {
+            line.forEach(idx => {
+                const cell = document.querySelector(`.game-cell[data-index="${idx}"]`);
+                if (cell) cell.classList.add('pulse');
+            });
+        }
+        
+
+
+
+
+        function showHint() {
+            if (gameState.gameCompleted) return;
+            const correctCell = document.querySelector(`.game-cell[data-term="${gameState.currentQuestion.correctTerm}"]`);
+            if (correctCell && !gameState.selectedCells.includes(parseInt(correctCell.dataset.index))) {
+                correctCell.classList.add('pulse');
+                gameState.score = Math.max(0, gameState.score - 3);
+                showNotification('提示激活！-3分', 'info');
+                setTimeout(() => correctCell.classList.remove('pulse'), 2000);
+                updateGameDisplay();
+            }
+        }
+        
+
+
+        function updateGameDisplay() {
+            document.getElementById('round-count').textContent = gameState.currentRound;
+            document.getElementById('score-value').textContent = gameState.score;
+            document.getElementById('correct-count').textContent = gameState.correctAnswers;
+            document.getElementById('line-count').textContent = gameState.completedLines;
+            if (gameState.gameCompleted) {
+                document.getElementById('game-status').textContent = '遊戲結束';
+            } else {
+                document.getElementById('game-status').textContent = '進行中';
+            }
+        }
+        
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+        
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            if (pageId === 'game-page') initGame();
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('home-btn').addEventListener('click', () => switchPage('home-page'));
+            document.getElementById('game-btn').addEventListener('click', () => switchPage('game-page'));
+            document.getElementById('new-game-btn').addEventListener('click', initGame);
+            document.getElementById('hint-btn').addEventListener('click', showHint);
+        });
+    </script>
+</body>
+</html>
